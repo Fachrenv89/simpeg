@@ -10,7 +10,7 @@ type Config struct {
 	DBDriver            string        `mapstructure:"DB_DRIVER"`
 	DBSource            string        `mapstructure:"DB_SOURCE"`
 	MigrationURL        string        `mapstructure:"MIGRATION_URL"`
-	HTTPServerAddress   string        `mapstructure:"HTTP_SERVER_ADDRESS"`
+	HTTPServerAddress   string        `mapstructure:"PORT"`
 	TokenSymmetricKey   string        `mapstructure:"TOKEN_SYMMETRIC_KEY"`
 	AccessTokenDuration time.Duration `mapstructure:"ACCESS_TOKEN_DURATION"`
 }
@@ -31,7 +31,7 @@ func LoadConfig(path string) (config Config, err error) {
 		config.DBDriver = viper.GetString("DB_DRIVER")
 		config.DBSource = viper.GetString("DB_SOURCE")
 		config.MigrationURL = viper.GetString("MIGRATION_URL")
-		config.HTTPServerAddress = viper.GetString("HTTP_SERVER_ADDRESS")
+		config.HTTPServerAddress = viper.GetString("PORT")
 		config.TokenSymmetricKey = viper.GetString("TOKEN_SYMMETRIC_KEY")
 		config.AccessTokenDuration = viper.GetDuration("ACCESS_TOKEN_DURATION")
 	}
