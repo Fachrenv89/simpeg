@@ -169,3 +169,43 @@ func (server *Server) loginUser(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, rsp)
 }
+
+type updateUserRequest struct {
+	ID    string `json:"id"`
+	Name  string `json:"name"`
+	Role  string `json:"role"`
+	Email string `json:"email"`
+	Photo string `json:"photo"`
+}
+
+func (server *Server) updateUserProfile(ctx *gin.Context) {
+	var req updateUserRequest
+	if err := ctx.ShouldBindJSON(&req); err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
+	}
+
+	arg := db.UpdateUserProfileParams{
+		ID:    req.ID,
+		Name:  req.Name,
+		Role:  req.Role,
+		Email: req.Email,
+		Photo: req.Photo,
+	}
+
+	err := server.store.UpdateUserProfile(ctx, arg)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
+	}
+
+	rsp := userResponse{
+		ID:    arg.ID,
+		Name:  req.Name,
+		Role:  req.Role,
+		Email: req.Email,
+		Photo: req.Photo,
+	}
+
+	ctx.JSON(http.StatusCreated, rsp)
+}

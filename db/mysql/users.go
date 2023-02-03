@@ -48,16 +48,17 @@ func (q *Queries) UpdateUserPassword(ctx context.Context, arg UpdateUserPassword
 type UpdateUserProfileParams struct {
 	ID    string `json:"id"`
 	Name  string `json:"name"`
+	Role  string `json:"role"`
 	Email string `json:"email"`
 	Photo string `json:"photo"`
 }
 
-const updateUser = `-- name: UpdateUser :one
-UPDATE users SET name = ?, email = ?, photo = ? WHERE id = ?;`
+const updateUser = `UPDATE users SET name = ?,  role = ?, email = ?, photo = ? WHERE id = ?;`
 
 func (q *Queries) UpdateUserProfile(ctx context.Context, arg UpdateUserProfileParams) error {
 	_, err := q.db.ExecContext(ctx, updateUser,
 		arg.Name,
+		arg.Role,
 		arg.Email,
 		arg.Photo,
 		arg.ID,

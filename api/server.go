@@ -40,7 +40,7 @@ func (server *Server) setupRouter() {
 	router.POST("/api/users/login", server.loginUser)
 	router.POST("/api/users/register", server.createUser)
 	router.PUT("/api/users/change-password", server.changePassword)
-	//router.PUT("/api/users/profile", server.updateUserProfile)
+	router.PUT("/api/users/profile", server.updateUserProfile)
 
 	router.POST("/api/lembur", server.createLembur)
 	router.GET("/api/lembur", server.listLembur)

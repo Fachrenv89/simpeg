@@ -25,7 +25,7 @@ type Querier interface {
 	GetUserByEmail(ctx context.Context, email string) (User, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) error
 	UpdateNonStaff(ctx context.Context, arg UpdateNonStaffParams) error
-	//UpdateUserProfile(ctx context.Context, arg UpdateUserParams) error
+	UpdateUserProfile(ctx context.Context, arg UpdateUserProfileParams) error
 	UpdateUserPassword(ctx context.Context, arg UpdateUserPasswordParams) error
 }
 
