@@ -26,6 +26,14 @@ func LoadConfig(path string) (config Config, err error) {
 	err = viper.ReadInConfig()
 	if err != nil {
 		return
+
+		config.Environment = viper.GetString("ENVIRONMENT")
+		config.DBDriver = viper.GetString("DB_DRIVER")
+		config.DBSource = viper.GetString("DB_SOURCE")
+		config.MigrationURL = viper.GetString("MIGRATION_URL")
+		config.HTTPServerAddress = viper.GetString("HTTP_SERVER_ADDRESS")
+		config.TokenSymmetricKey = viper.GetString("TOKEN_SYMMETRIC_KEY")
+		config.AccessTokenDuration = viper.GetDuration("ACCESS_TOKEN_DURATION")
 	}
 
 	err = viper.Unmarshal(&config)
