@@ -2,6 +2,7 @@ package api
 
 import (
 	"fmt"
+
 	db "github.com/SemmiDev/simpeg/db/mysql"
 	"github.com/SemmiDev/simpeg/util"
 	"github.com/gin-contrib/cors"
@@ -79,7 +80,7 @@ func (server *Server) setupRouter() {
 
 // Start runs the HTTP server on a specific address.
 func (server *Server) Start(address string) error {
-	return server.router.Run(address)
+	return server.router.Run(":" + address)
 }
 
 func errorResponse(err error) gin.H {
