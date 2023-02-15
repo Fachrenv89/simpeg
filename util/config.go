@@ -16,6 +16,27 @@ type Config struct {
 }
 
 // LoadConfig reads configuration from file or environment variables.
+// func LoadConfig(path string) (config Config, err error) {
+// 	viper.AddConfigPath(path)
+// 	viper.SetConfigName("app")
+// 	viper.SetConfigType("env")
+// 	viper.AutomaticEnv()
+// 	viper.ReadInConfig()
+// 	if err != nil {
+// 		config.DBDriver = viper.GetString("DB_DRIVER")
+// 		config.Environment = viper.GetString("ENVIRONMENT")
+// 		config.DBSource = viper.GetString("DB_SOURCE")
+// 		config.HTTPServerAddress = viper.GetString("PORT")
+// 		config.TokenSymmetricKey = viper.GetString("TOKEN_SYMMETRIC_KEY")
+// 		config.AccessTokenDuration = viper.GetDuration("ACCESS_TOKEN_DURATION")
+// 		return
+// 	}
+
+// 	err = viper.Unmarshal(&config)
+// 	return
+// }
+
+
 func LoadConfig(path string) (config Config, err error) {
 	// viper.AddConfigPath(path)
 	// viper.SetConfigName("app")

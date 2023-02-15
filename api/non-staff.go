@@ -4,12 +4,13 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	"github.com/SemmiDev/simpeg/util"
-	"github.com/jung-kurt/gofpdf"
 	"math"
 	"net/http"
 	"strconv"
 	"strings"
+
+	"github.com/SemmiDev/simpeg/util"
+	"github.com/jung-kurt/gofpdf"
 
 	"github.com/Rhymond/go-money"
 	db "github.com/SemmiDev/simpeg/db/mysql"
@@ -71,9 +72,16 @@ type Rekapitulasi struct {
 	GajiPokok    string `json:"gaji_pokok"`
 
 	TunjanganKemahalan *float32 `json:"tunjangan_kemahalan"`
+	TunjanganKemahalanStr string `json:"tunjangan_kemahalan_str"`
+
 	TunjanganPerumahan *float32 `json:"tunjangan_perumahan"`
+	TunjanganPerumahanStr string `json:"tunjangan_perumahan_str"`
+
 	TunjanganJabatan   *float32 `json:"tunjangan_jabatan"`
+	TunjanganJabatanStr   string `json:"tunjangan_jabatan_str"`
+
 	TunjanganLainPph21 *float32 `json:"tunjangan_lain_pph21"`
+	TunjanganLainPph21Str string `json:"tunjangan_lain_pph21_str"`
 
 	TKJkk      string `json:"jkk"`
 	TKJkm      string `json:"jkm"`
@@ -360,10 +368,27 @@ func (s *Server) detailNonStaff(ctx *gin.Context) {
 	response.Rekapitulasi.KodeTNG = dataNonStaff.Ptkp
 	response.Rekapitulasi.Golongan = dataNonStaff.Golongan
 	response.Rekapitulasi.GajiPokok = money.NewFromFloat(float64(dataNonStaff.GajiPokok), money.IDR).Display()
+
 	response.Rekapitulasi.TunjanganKemahalan = dataNonStaff.TunjanganKemahalan
+	if dataNonStaff.TunjanganKemahalan != nil {
+		response.Rekapitulasi.TunjanganKemahalanStr = money.NewFromFloat(float64(*dataNonStaff.TunjanganKemahalan), money.IDR).Display()
+	}
+
 	response.Rekapitulasi.TunjanganPerumahan = dataNonStaff.TunjanganPerumahan
+	if dataNonStaff.TunjanganPerumahan != nil {
+		response.Rekapitulasi.TunjanganPerumahanStr = money.NewFromFloat(float64(*dataNonStaff.TunjanganPerumahan), money.IDR).Display()
+	}
+
 	response.Rekapitulasi.TunjanganJabatan = dataNonStaff.TunjanganJabatan
+	if dataNonStaff.TunjanganJabatan != nil {
+		response.Rekapitulasi.TunjanganJabatanStr = money.NewFromFloat(float64(*dataNonStaff.TunjanganJabatan), money.IDR).Display()
+	}
+
 	response.Rekapitulasi.TunjanganLainPph21 = dataNonStaff.TunjanganLainPph21
+	if dataNonStaff.TunjanganLainPph21 != nil {
+		response.Rekapitulasi.TunjanganLainPph21Str = money.NewFromFloat(float64(*dataNonStaff.TunjanganLainPph21), money.IDR).Display()
+	}
+
 	response.Rekapitulasi.TKJkk = response.Jkk
 	response.Rekapitulasi.TKJkm = response.Jkm
 	response.Rekapitulasi.KesehatanP = response.Bpjs_4persen
